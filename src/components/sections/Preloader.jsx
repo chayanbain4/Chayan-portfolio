@@ -7,6 +7,12 @@ const Preloader = ({ onDone }) => {
   const rootRef = useRef(null)
 
   useLayoutEffect(() => {
+    const resetHorizontalScroll = () => {
+      document.documentElement.scrollLeft = 0
+      document.body.scrollLeft = 0
+    }
+
+    resetHorizontalScroll()
     document.body.style.overflow = 'hidden'
 
     const context = gsap.context(() => {
@@ -14,6 +20,7 @@ const Preloader = ({ onDone }) => {
         defaults: { ease: 'power3.out' },
         onComplete: () => {
           document.body.style.overflow = ''
+          resetHorizontalScroll()
           onDone?.()
         },
       })

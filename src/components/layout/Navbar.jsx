@@ -45,13 +45,24 @@ const Navbar = () => {
     }
   }, [open])
 
+  useEffect(() => {
+    if (!open) return undefined
+
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [open])
+
   return (
     <header className={`nav-shell ${scrolled ? 'is-scrolled' : ''} ${hidden ? 'is-hidden' : ''}`}>
       <a className="brand-mark" href="#top" aria-label={`${profile.name} home`}>
         <span>{profile.name}</span>
       </a>
 
-      <nav className={`nav-links ${open ? 'is-open' : ''}`} aria-label="Main navigation">
+      <nav id="mobile-navigation" className={`nav-links ${open ? 'is-open' : ''}`} aria-label="Main navigation">
         {navItems.map((item) => (
           <a key={item.href} href={item.href} onClick={() => setOpen(false)}>
             {item.label}
@@ -68,6 +79,7 @@ const Navbar = () => {
         className="nav-toggle"
         aria-label={open ? 'Close navigation' : 'Open navigation'}
         aria-expanded={open}
+        aria-controls="mobile-navigation"
         onClick={() => setOpen((value) => !value)}
       >
         <Icon name={open ? 'close' : 'menu'} size={22} />

@@ -30,6 +30,8 @@
 
 html {
   background: var(--dark);
+  max-width: 100%;
+  overflow-x: clip;
   scroll-behavior: smooth;
   scroll-padding-top: 88px;
   scrollbar-gutter: stable;
@@ -37,13 +39,19 @@ html {
 
 body {
   min-width: 320px;
-  overflow-x: hidden;
+  max-width: 100%;
+  overflow-x: clip;
   background: var(--cream);
   color: var(--ink);
   font-family: var(--font-body);
   padding-bottom: 48px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 button,
